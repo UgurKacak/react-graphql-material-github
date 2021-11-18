@@ -10,14 +10,25 @@ import Grid from "@mui/material/Grid";
 import Tab from "@mui/material/Tab";
 
 // Recoil
-import { currentTabState, personalAccessTokenState } from "../recoil/atoms";
+import {
+	currentTabState,
+	personalAccessTokenState,
+	clearCacheByPass,
+} from "../recoil/atoms";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 
 const Header = () => {
 	const personalAccessToken = useRecoilValue(personalAccessTokenState);
 	const currentTab = useRecoilValue(currentTabState);
 	const setCurrentTab = useSetRecoilState(currentTabState);
+
+	const cache = useRecoilValue(clearCacheByPass);
+	const setCache = useSetRecoilState(clearCacheByPass);
+
 	const handleChange = (event, newValue) => {
+		if (newValue === 1) {
+			setCache(cache + 1);
+		}
 		setCurrentTab(parseInt(newValue));
 	};
 
