@@ -1,12 +1,17 @@
 import React, { useState } from "react";
 
-import Button from "@mui/material/Button";
+// Material UI
 import CssBaseline from "@mui/material/CssBaseline";
-import TextField from "@mui/material/TextField";
-import Box from "@mui/material/Box";
-import Alert from "@mui/material/Alert";
 import Typography from "@mui/material/Typography";
+import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
+import Alert from "@mui/material/Alert";
+import Box from "@mui/material/Box";
 
+// Utils
+import LocalStorage from "../utils/localStorage.utils";
+
+// Recoil
 import { personalAccessTokenState } from "../recoil/atoms";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 
@@ -21,7 +26,13 @@ const AccessTokenInput = () => {
 	};
 
 	const handleSave = (e) => {
-		token === "" ? setPersonalAccessToken(null) : setPersonalAccessToken(token);
+		if (token === "") {
+			setPersonalAccessToken(null);
+			LocalStorage.setItem("personalAccessToken", null);
+		} else {
+			setPersonalAccessToken(token);
+			LocalStorage.setItem("personalAccessToken", token);
+		}
 	};
 
 	return (

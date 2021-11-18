@@ -1,31 +1,58 @@
-import React from "react";
-import Paper from "@mui/material/Paper";
-import InputBase from "@mui/material/InputBase";
-import Divider from "@mui/material/Divider";
-import IconButton from "@mui/material/IconButton";
+import React, { useRef } from "react";
+
+// Material UI
 import GitHubIcon from "@mui/icons-material/GitHub";
 import SearchIcon from "@mui/icons-material/Search";
-const SearchRepositories = () => {
+import IconButton from "@mui/material/IconButton";
+import InputBase from "@mui/material/InputBase";
+import Divider from "@mui/material/Divider";
+import Paper from "@mui/material/Paper";
+
+// Recoil
+import { searchQueryState } from "../recoil/atoms";
+import { useSetRecoilState } from "recoil";
+
+const SearchRepositories = (props) => {
+	const searchInput = useRef(null);
+	const setSearchQuery = useSetRecoilState(searchQueryState);
+	const searchButtonHandler = () => {
+		if (
+			searchInput.current.lastChild.value !== undefined &&
+			searchInput.current.lastChild.value !== null &&
+			searchInput.current.lastChild.value !== ""
+		) {
+			setSearchQuery(
+				`is:public ${searchInput.current.lastChild.value} in:name`
+			);
+		}
+	};
+
 	return (
-		<Paper
-			component="form"
-			sx={{ p: "2px 14px", display: "flex"}}
-		>
-			<IconButton sx={{ p: "10px" }} aria-label="menu">
-				<GitHubIcon />
-			</IconButton>
+		<div>
+			<Paper component="form" sx={{ p: "2px 14px", display: "flex" }}>
+				<IconButton sx={{ p: "10px" }} aria-label="menu">
+					<GitHubIcon />
+				</IconButton>
 
-			<Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
+				<Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
 
-			<InputBase
-				sx={{ ml: 1, flex: 1 }}
-				placeholder="Search Public Repositories on GitHub"
-				inputProps={{ "aria-label": "search google maps" }}
-			/>
-			<IconButton edge="end" type="submit" sx={{ p: "10px" }} aria-label="search">
-				<SearchIcon />
-			</IconButton>
-		</Paper>
+				<InputBase
+					ref={searchInput}
+					sx={{ ml: 1, flex: 1 }}
+					placeholder="Search Public Repositories on GitHub"
+					inputProps={{ "aria-label": "search google maps" }}
+				/>
+
+				<IconButton
+					edge="end"
+					onClick={searchButtonHandler}
+					sx={{ p: "10px" }}
+					aria-label="search"
+				>
+					<SearchIcon />
+				</IconButton>
+			</Paper>
+		</div>
 	);
 };
 

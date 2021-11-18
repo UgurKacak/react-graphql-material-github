@@ -1,7 +1,11 @@
 import * as React from "react";
+
+// Material UI
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import Box from "@mui/material/Box";
+
+// Components
 import Content from "./Content";
 import Header from "./Header";
 

@@ -1,12 +1,15 @@
 import React from "react";
+
+// Material UI
+import GitHubIcon from "@mui/icons-material/GitHub";
+import Typography from "@mui/material/Typography";
+import Toolbar from "@mui/material/Toolbar";
 import AppBar from "@mui/material/AppBar";
+import Tabs from "@mui/material/Tabs";
 import Grid from "@mui/material/Grid";
 import Tab from "@mui/material/Tab";
-import Tabs from "@mui/material/Tabs";
-import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
-import GitHubIcon from "@mui/icons-material/GitHub";
 
+// Recoil
 import { currentTabState, personalAccessTokenState } from "../../recoil/atoms";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 
@@ -15,7 +18,7 @@ const Header = () => {
 	const currentTab = useRecoilValue(currentTabState);
 	const setCurrentTab = useSetRecoilState(currentTabState);
 	const handleChange = (event, newValue) => {
-		setCurrentTab(newValue);
+		setCurrentTab(parseInt(newValue));
 	};
 
 	return (
