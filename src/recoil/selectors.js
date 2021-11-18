@@ -1,7 +1,7 @@
-import { selectorFamily } from "recoil";
-import { clearCacheByPass } from "./atoms";
 import { search } from "../services/repository.service";
 import { SEARCH_REPOSITORIES } from "../graphql/queries";
+import { clearCacheByPass } from "./atoms";
+import { selectorFamily } from "recoil";
 
 export const searchRepositoriesQuery = selectorFamily({
 	key: "searchResultState",

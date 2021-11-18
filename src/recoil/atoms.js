@@ -1,5 +1,6 @@
 import { atom } from "recoil";
 import LocalStorage from "../utils/localStorage.utils";
+
 export const currentTabState = atom({
 	key: "currentTabState",
 	default: 0,
