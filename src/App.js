@@ -2,7 +2,7 @@ import * as React from "react";
 
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
-import Main from "./components/Layout/Main";
+import Main from "./layouts/Main";
 
 const theme = createTheme({
 	palette: {

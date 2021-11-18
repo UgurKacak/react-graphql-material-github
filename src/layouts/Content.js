@@ -1,22 +1,27 @@
-import React, { Suspense } from "react";
+import React, { useState, Suspense } from "react";
 
 // Material UI
 import Paper from "@mui/material/Paper";
 import LinearProgress from "@mui/material/LinearProgress";
 
 // Components
-import SearchRepositories from "../SearchRepositories";
-import AccessTokenInput from "../AccessTokenInput";
-import SearchResultList from "../SearchResultList";
-import TabPanel from "../TabPanel";
+import SearchRepositories from "../components/SearchRepositories";
+import AccessTokenInput from "../components/AccessTokenInput";
+import SearchResultList from "../components/SearchResultList";
+import TabPanel from "../components/TabPanel";
 
 // Recoil
-import { currentTabState, searchQueryState } from "../../recoil/atoms";
+import { currentTabState, searchQueryState } from "../recoil/atoms";
 import { useRecoilValue } from "recoil";
 
 export default function Content() {
 	const currentTab = useRecoilValue(currentTabState);
 	const currentSearchQuery = useRecoilValue(searchQueryState);
+	const [endCursor, setEndCursor] = useState("");
+
+	const fetchMoreRepo = (endCursor) => {
+		setEndCursor(endCursor);
+	};
 	return (
 		<div>
 			<TabPanel value={currentTab} index={0}>
@@ -38,7 +43,11 @@ export default function Content() {
 				>
 					{currentSearchQuery && (
 						<Suspense fallback={<LinearProgress color="secondary" />}>
-							<SearchResultList searchQuery={currentSearchQuery} />
+							<SearchResultList
+								searchQuery={currentSearchQuery}
+								endCursor={endCursor}
+								fetchMoreRepo={fetchMoreRepo}
+							/>
 						</Suspense>
 					)}
 				</Paper>

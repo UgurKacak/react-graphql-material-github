@@ -27,9 +27,23 @@ const SearchRepositories = (props) => {
 		}
 	};
 
+	const handleKeyDown = (e) => {
+		if (e.key === "Enter") {
+			if (
+				searchInput.current.lastChild.value !== undefined &&
+				searchInput.current.lastChild.value !== null &&
+				searchInput.current.lastChild.value !== ""
+			) {
+				setSearchQuery(
+					`is:public ${searchInput.current.lastChild.value} in:name`
+				);
+			}
+		}
+	};
+
 	return (
 		<div>
-			<Paper component="form" sx={{ p: "2px 14px", display: "flex" }}>
+			<Paper sx={{ p: "2px 14px", display: "flex" }}>
 				<IconButton sx={{ p: "10px" }} aria-label="menu">
 					<GitHubIcon />
 				</IconButton>
@@ -39,8 +53,8 @@ const SearchRepositories = (props) => {
 				<InputBase
 					ref={searchInput}
 					sx={{ ml: 1, flex: 1 }}
+					onKeyDown={handleKeyDown}
 					placeholder="Search Public Repositories on GitHub"
-					inputProps={{ "aria-label": "search google maps" }}
 				/>
 
 				<IconButton

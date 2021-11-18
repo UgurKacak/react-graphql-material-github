@@ -13,23 +13,13 @@ import RepoListItem from "./RepoListItem";
 import { searchRepositoriesQuery } from "../recoil/selectors";
 import { useRecoilValue } from "recoil";
 
-const SearchResultList = ({ searchQuery }) => {
+const SearchResultList = ({ searchQuery, endCursor, fetchMoreRepo }) => {
 	const searchResult = useRecoilValue(
 		searchRepositoriesQuery({
 			searchQuery,
+			endCursor,
 		})
 	);
-	
-	const fetchMoreRepo = () => {
-		let { endCursor } = searchResult.pageInfo;
-		console.log(endCursor);
-		let params = {
-			searchQuery: searchQuery,
-			endCursor: endCursor,
-		};
-		//param use state ile çözlüyor setParam yaparak
-		//searchRepositoriesQuery(params);
-	};
 
 	const list =
 		searchResult &&
@@ -41,9 +31,17 @@ const SearchResultList = ({ searchQuery }) => {
 
 	const moreList =
 		searchResult && searchResult.pageInfo.hasNextPage ? (
-			<Button onClick={fetchMoreRepo}> More List </Button>
+			<Button
+				onClick={() => {
+					fetchMoreRepo(searchResult.pageInfo.endCursor);
+				}}
+				variant="contained"
+				sx={{  ml: 95, mt: 1 }}
+			>
+				Get Next 10 Result
+			</Button>
 		) : (
-			<Button href="#top">No more results</Button>
+			<Button sx={{  ml: 95, mt: 1 }} disabled>No more results</Button>
 		);
 
 	return (

@@ -10,7 +10,7 @@ import Grid from "@mui/material/Grid";
 import Tab from "@mui/material/Tab";
 
 // Recoil
-import { currentTabState, personalAccessTokenState } from "../../recoil/atoms";
+import { currentTabState, personalAccessTokenState } from "../recoil/atoms";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 
 const Header = () => {

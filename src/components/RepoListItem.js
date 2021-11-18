@@ -43,7 +43,22 @@ const RepoListItem = (props) => {
 	const cacheVal = useRecoilValue(clearCacheByPass);
 	const clearCache = useSetRecoilState(clearCacheByPass);
 
-	const LanguageIcon = () => {
+	const alphabetPosition = (text) => {
+		let result = "";
+		for (let i = 0; i < text.length; i++) {
+			let code = text.toUpperCase().charCodeAt(i);
+			if (code > 64 && code < 91) result += code - 64 + " ";
+		}
+
+		return result.slice(0, result.length - 1);
+	};
+
+	const LanguageIcon = (text) => {
+		var colorArray = [
+			"red","yellow","blue","cyan","orange","purple","green","white"
+		];
+		let firstLetter = text.lang.charAt(0);
+		let color = colorArray[alphabetPosition(firstLetter) % 7];
 		return (
 			<span
 				style={{
@@ -52,9 +67,9 @@ const RepoListItem = (props) => {
 					display: "inline-block",
 					width: "12px",
 					height: "12px",
-					border: "1px solid yellow",
+					border: "2px solid" + color,
 					borderRadius: "50%",
-					backgroundColor: "yellow",
+					backgroundColor: color,
 				}}
 			></span>
 		);
@@ -122,7 +137,7 @@ const RepoListItem = (props) => {
 								<span>
 									<Stack direction="row" spacing={0.5}>
 										<span>
-											<LanguageIcon />
+											<LanguageIcon lang={repository.primaryLanguage.name} />
 										</span>
 										<span style={{ marginTop: "1px" }}>
 											{repository.primaryLanguage.name}
