@@ -18,7 +18,6 @@ https://github-graphql-api-react-ugurk.herokuapp.com/
 - Star & Watch repositories
 
 ## Installation
-You can import tables and sample data to the postgresql using the ecommerce_db.sql file.
 
 ```sh
 git clone https://github.com/UgurKacak/react-graphql-material-github
